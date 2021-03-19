@@ -1,13 +1,14 @@
 # Web Runner
 
 A **LEMP** stack docker image based on [Alpine Linux](https://alpinelinux.org/).
-Available variants: `frengky/web`, `frengky/web:php8`, `frengky/web:php7`, `frengky/web:laravel`
+Available variants: `frengky/web`, `frengky/web:php8`, `frengky/web:php7`, `frengky/web:laravel`, `frengky/web:static`
 
 *Image description*:
 
 | Variant  | Description |
 |---|---|
 | frengky/web | For running common PHP website |
+| frengky/web:static | For running static html website |
 | frengky/web:laravel | Optimized to run Laravel website, complete with scheduler and queue workers |
 
 *Environment variables*:
