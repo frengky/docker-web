@@ -1,6 +1,10 @@
 FROM frengky/web:php7
 LABEL maintainer="frengky.lim@gmail.com"
 
+RUN apk --update --no-cache add \
+    bash && \
+    rm -rf /var/cache/apk/*
+
 COPY supervisor/crond.ini /etc/supervisor.d/
 COPY supervisor/laravel-worker.ini /etc/supervisor.d/
 COPY nginx/laravel.conf /etc/nginx/conf.d/default.conf
