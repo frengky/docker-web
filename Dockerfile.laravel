@@ -9,6 +9,7 @@ VOLUME /app
 WORKDIR /app
 EXPOSE 8080
 
+COPY scripts/wait-for-it.sh /usr/local/bin/wait-for-it.sh
 COPY scripts/docker-entrypoint.laravel.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
 
