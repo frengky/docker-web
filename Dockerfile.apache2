@@ -1,0 +1,28 @@
+FROM frengky/php:8
+LABEL maintainer="frengky.lim@gmail.com"
+
+ARG APP_UID=1000
+ARG APP_GID=1000
+
+RUN apk --update --no-cache add \
+    bash \
+    apache2 \
+    php8-apache2 && \
+    ln -s /dev/stdout /var/log/apache2/access.log && \
+    ln -s /dev/stderr /var/log/apache2/error.log && \
+    rm -rf /var/www/localhost/cgi-bin && \
+    rm -f /usr/sbin/suexec && \
+    addgroup -g ${APP_GID} app && \
+    adduser -S -D -u ${APP_UID} -s /bin/ash -h /app -G app app && \
+    rm -rf /var/cache/apk/*
+
+COPY apache2/httpd-php8.conf /etc/apache2/httpd.conf
+COPY scripts/docker-entrypoint.apache2.sh /usr/local/bin/docker-entrypoint.sh
+COPY scripts/wait-for-it.sh /usr/local/bin/
+
+VOLUME /app
+WORKDIR /app
+EXPOSE 8080
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["httpd", "-D", "FOREGROUND"]
