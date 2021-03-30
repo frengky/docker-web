@@ -17,7 +17,8 @@ xdebug.start_with_request=yes\n" > /etc/php7/conf.d/50_xdebug.ini
 
     ARTISAN=/app/artisan
     if [ -f "$ARTISAN" ]; then
-        echo "* * * * * /usr/bin/php /app/artisan schedule:run >> /dev/null 2>&1" | crontab -u app -
+        #echo "* * * * * /usr/bin/php /app/artisan schedule:run >> /dev/null 2>&1" | crontab -u app -
+        echo "* * * * * /usr/bin/php /app/artisan schedule:run" | crontab -u app -
         export LARAVEL_WORKER=${LARAVEL_WORKER:-1}
     else
         mv /etc/supervisor.d/laravel-worker.ini /etc/supervisor.d/laravel-worker.disabled
