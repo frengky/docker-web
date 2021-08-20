@@ -4,7 +4,8 @@ LABEL maintainer="frengky.lim@gmail.com"
 ARG APP_UID=1000
 ARG APP_GID=1000
 
-RUN apk --update --no-cache add \
+RUN apk -U upgrade && \
+    apk --no-cache add \
     bash \
     apache2 \
     php8-apache2 && \

@@ -1,17 +1,19 @@
-ARG ALPINE_VERSION=latest
-
-FROM alpine:${ALPINE_VERSION}
+FROM alpine:3.14
 LABEL maintainer="frengky.lim@gmail.com"
 
+ARG ALPINE_MIRROR=https://download.nus.edu.sg/mirror/alpine/v3.14
 ARG TIMEZONE=Asia/Jakarta
 ARG APP_UID=1000
 ARG APP_GID=1000
 
-RUN apk --update --no-cache add \
+RUN echo ${ALPINE_MIRROR}/main > /etc/apk/repositories && \
+    echo ${ALPINE_MIRROR}/community >> /etc/apk/repositories && \
+    apk -U upgrade && \
+    apk --no-cache add \
     tzdata \
     ca-certificates \
     nginx && \
-    mkdir /run/nginx && \
+    mkdir -p /run/nginx && \
     ln -s /dev/stdout /var/log/nginx/access.log && \
     ln -s /dev/stderr /var/log/nginx/error.log && \
     cp "/usr/share/zoneinfo/${TIMEZONE}" /etc/localtime && \

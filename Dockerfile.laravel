@@ -1,7 +1,8 @@
 FROM frengky/web:php7
 LABEL maintainer="frengky.lim@gmail.com"
 
-RUN apk --update --no-cache add \
+RUN apk -U upgrade && \
+    apk --no-cache add \
     bash && \
     rm -rf /var/cache/apk/*
 
